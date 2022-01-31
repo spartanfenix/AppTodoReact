@@ -1,5 +1,6 @@
 import "./App.css";
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
+import { getTodos } from "./services/TodoApi.service";
 import TodoList from "./components/TodoList";
 import TodoInput from "./components/TodoInput";
 
@@ -7,12 +8,49 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { v4 as uuid } from "uuid";
 
 class App extends Component {
+  // useEffect(() => {
+  //     getReminders();
+  //   },[]);
+
   state = {
-    items: [],
+    items: [
+      {
+        userId: 1,
+        id: 1,
+        title: "delectus aut autem",
+        completed: false,
+      },
+      {
+        userId: 1,
+        id: 2,
+        title: "quis ut nam facilis et officia qui",
+        completed: false,
+      },
+      {
+        userId: 1,
+        id: 3,
+        title: "fugiat veniam minus",
+        completed: false,
+      },
+      {
+        userId: 1,
+        id: 4,
+        title: "et porro tempora",
+        completed: true,
+      },
+      {
+        userId: 1,
+        id: 5,
+        title:
+          "laboriosam mollitia et enim quasi adipisci quia provident illum",
+        completed: false,
+      },
+    ],
     id: uuid(),
     item: "",
     editItem: false,
   };
+
   handleChange = (e) => {
     this.setState({ item: e.target.value });
   };
