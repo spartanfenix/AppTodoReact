@@ -7,10 +7,10 @@ export default class TodoItem extends Component {
         <h6>tarea</h6>
         <div className="todo-icon">
           <span className="mx-2 text-success">
-            <button class="btn btn-warning">Editar</button>
+            <button class="btn btn-outline-warning">Editar</button>
           </span>
           <span className="mx-2 text-success">
-            <button class="btn btn-danger">Eliminar</button>
+            <button class="btn btn-outline-danger">Eliminar</button>
           </span>
         </div>
       </li>

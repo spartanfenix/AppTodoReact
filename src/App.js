@@ -5,6 +5,8 @@ import axios from "axios";
 import TodoList from "./components/TodoList";
 import TodoInput from "./components/TodoInput";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 class App extends Component {
   // const [todos, setTodos] = useState([]);
 
@@ -28,7 +30,26 @@ class App extends Component {
     editItem: false,
   };
   handleChange = (e) => {
-    this.setState({ items: e.target.value });
+    this.setState({ item: e.target.value });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newItem = {
+      id: this.state.id,
+      item: this.state.item,
+    };
+
+    console.log(newItem);
+
+    const updateItems = [...this.state.items, newItem];
+
+    this.setState({
+      items: updateItems,
+      item: "",
+      id: this.id,
+      editItem: false,
+    });
   };
   render() {
     return (
@@ -37,6 +58,7 @@ class App extends Component {
           <TodoInput
             item={this.state.item}
             handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
           ></TodoInput>
         </section>
         <section className="List-All">
