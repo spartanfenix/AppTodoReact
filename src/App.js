@@ -6,6 +6,7 @@ import TodoList from "./components/TodoList";
 import TodoInput from "./components/TodoInput";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { v4 as uuid } from "uuid";
 
 class App extends Component {
   // const [todos, setTodos] = useState([]);
@@ -25,7 +26,7 @@ class App extends Component {
 
   state = {
     items: [],
-    id: 0,
+    id: uuid(),
     item: "",
     editItem: false,
   };
@@ -37,18 +38,39 @@ class App extends Component {
 
     const newItem = {
       id: this.state.id,
-      item: this.state.item,
+      title: this.state.item,
     };
 
-    console.log(newItem);
+    //console.log(newItem);
 
     const updateItems = [...this.state.items, newItem];
 
     this.setState({
       items: updateItems,
       item: "",
-      id: this.id,
+      id: uuid(),
       editItem: false,
+    });
+  };
+
+  clearList = () => {
+    this.setState({ items: [] });
+  };
+
+  handleDelete = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    this.setState({ items: filteredItems });
+  };
+
+  handleEdit = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    const selectedItem = this.state.items.find((item) => item.id === id);
+
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      editItem: true,
+      id: id,
     });
   };
   render() {
@@ -59,10 +81,16 @@ class App extends Component {
             item={this.state.item}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
+            editItem={this.state.editItem}
           ></TodoInput>
         </section>
         <section className="List-All">
-          <TodoList></TodoList>
+          <TodoList
+            items={this.state.items}
+            clearList={this.clearList}
+            handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
+          ></TodoList>
         </section>
       </div>
     );
